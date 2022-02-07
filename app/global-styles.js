@@ -5,11 +5,11 @@ const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
     width: 100%;
-    line-height: 1.5;
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: urw-form, sans-serif;
+    font-style: normal;
   }
 
   body.fontLoaded {
@@ -17,15 +17,17 @@ const GlobalStyle = createGlobalStyle`
   }
 
   #app {
-    background-color: #fafafa;
+    background-color: white;
     min-height: 100%;
     min-width: 100%;
   }
 
   p,
   label {
-    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-family: urw-form, sans-serif;
+    font-style: normal;
     line-height: 1.5em;
+    font-size: 12px;
   }
 `;
 
