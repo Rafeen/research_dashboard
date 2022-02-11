@@ -15,8 +15,8 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Login from 'containers/Login/Loadable';
-
 import GlobalStyle from '../../global-styles';
+import PrivateRoute from '../../components/PrivateRoute';
 
 const theme = {
   app: {
@@ -34,10 +34,12 @@ export default function App() {
         <meta name="description" content="A robust interactive application" />
       </Helmet>
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
         <Route path="/login" component={Login} />
-        <Route path="" component={NotFoundPage} />
+        <PrivateRoute>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/features" component={FeaturePage} />
+          <Route path="" component={NotFoundPage} />
+        </PrivateRoute>
       </Switch>
       <GlobalStyle />
     </ThemeProvider>
