@@ -12,8 +12,7 @@ describe('loginReducer', () => {
   });
 
   it('returns the initial state', () => {
-    const expectedResult = state;
-    expect(loginReducer(undefined, {})).toEqual(expectedResult);
+    expect(loginReducer(undefined, {})).toEqual(state);
   });
 
   /**
