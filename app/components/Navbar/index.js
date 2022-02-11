@@ -17,7 +17,7 @@ const Icon = styled(MenuIcon)`
 `;
 
 const NavLink = styled(Link)`
-  margin-left: ${({ sidebar }) => (sidebar ? 'calc(232px)' : '2rem')};
+  margin-left: ${({ shownav }) => (shownav === 1 ? 'calc(232px)' : '2rem')};
   font-size: 2rem;
   height: 80px;
   display: flex;
@@ -33,11 +33,11 @@ const Nav = styled.nav`
   align-items: center;
 `;
 
-function Navbar(props) {
+function Navbar({ sidebar, toggleSidebar }) {
   return (
     <Nav>
-      <NavLink sidebar={props.sidebar} to="#">
-        <Icon onClick={props.toggleSidebar} sidebar={props.sidebar} />
+      <NavLink shownav={sidebar ? 1 : 0} to="#">
+        <Icon onClick={toggleSidebar} />
       </NavLink>
     </Nav>
   );

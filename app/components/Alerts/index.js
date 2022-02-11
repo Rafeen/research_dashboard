@@ -1,6 +1,6 @@
 /**
  *
- * LoadingIndicator
+ * Alerts
  *
  */
 
@@ -8,10 +8,10 @@ import React, { memo } from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
-function LoadingIndicator() {
+function Alerts() {
   return <div />;
 }
 
-LoadingIndicator.propTypes = {};
+Alerts.propTypes = {};
 
-export default memo(LoadingIndicator);
+export default memo(Alerts);

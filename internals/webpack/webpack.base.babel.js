@@ -113,6 +113,10 @@ module.exports = options => ({
     // drop any unreachable code.
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      APP_ID: JSON.stringify(process.env.APP_ID),
+      API_URL: 'PUT_URL_HERE',
+      PORT: JSON.stringify(process.env.PORT),
+      HOST: JSON.stringify(process.env.HOST),
     }),
   ]),
   resolve: {

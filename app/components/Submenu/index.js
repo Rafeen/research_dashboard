@@ -49,6 +49,7 @@ const SidebarLink = styled(Link)`
   height: 60px;
   text-decoration: none;
   font-size: 18px;
+
   &:hover {
     background: #252831;
     border-left: 4px solid #632ce4;
@@ -85,6 +86,7 @@ const DropdownLink = styled(Link)`
   text-decoration: none;
   color: #f5f5f5;
   font-size: 18px;
+
   &:hover {
     color: #632ce4;
     cursor: pointer;
@@ -131,6 +133,7 @@ function Submenu({ item }) {
       <Dropdown subnav={subnav}>
         {item.subNav.map(subItem => (
           <DropdownLink
+            key={subItem.path}
             to={subItem.path}
             className={location.pathname === subItem.path ? 'selected' : ''}
           >
