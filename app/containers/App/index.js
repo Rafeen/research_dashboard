@@ -12,6 +12,7 @@ import { ThemeProvider } from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import HealthStatusPage from 'containers/HealthStatusPage/Loadable';
 import Login from 'containers/LoginPage/Loadable';
 import PrivateRoute from 'components/PrivateRoute/Loadable';
 import GlobalStyle from 'global-styles';
@@ -54,8 +55,9 @@ function App({ dispatch, appState }) {
       <Alerts messages={messages} />
       <Switch>
         <Route path="/login" component={Login} />
+        <Route path="/404" component={NotFoundPage} />
         <PrivateRoute>
-          <Route path="" component={NotFoundPage} />
+          <Route path="/healthstatus" component={HealthStatusPage} />
         </PrivateRoute>
       </Switch>
       <GlobalStyle />

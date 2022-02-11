@@ -15,7 +15,7 @@ const SidebarData = [
       },
       {
         title: 'Bar Charts',
-        path: '/charts/bar',
+        path: '/healthstatus',
         icon: <Icons.BarChart />,
       },
       {
