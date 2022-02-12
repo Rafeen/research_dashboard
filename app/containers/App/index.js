@@ -32,6 +32,16 @@ const theme = {
   app: {
     primary: '#ffff',
   },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          boxShadow: 'none',
+          backgroundColor: 'white',
+        },
+      },
+    },
+  },
 };
 
 function App({ dispatch, appState }) {
