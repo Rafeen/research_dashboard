@@ -18,7 +18,8 @@ import makeSelectHealthStatusPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import Form from '../../components/Form';
-
+import BarChart from '../../components/BarChart';
+import DemoData from './DemoData';
 // eslint-disable-next-line no-unused-vars
 export function HealthStatusPage({ dispatch }) {
   useInjectReducer({ key: 'healthStatusPage', reducer });
@@ -44,10 +45,10 @@ export function HealthStatusPage({ dispatch }) {
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: 240,
+            height: 600,
           }}
         >
-          <div>Hello Health</div>
+          <BarChart data={DemoData} />
         </Paper>
       </Grid>
     </Grid>
