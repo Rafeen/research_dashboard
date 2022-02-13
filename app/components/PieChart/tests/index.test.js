@@ -1,6 +1,6 @@
 /**
  *
- * Tests for Form
+ * Tests for PieChart
  *
  * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
  *
@@ -10,12 +10,12 @@ import React from 'react';
 import { render } from 'react-testing-library';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import Form from '../index';
+import PieChart from '../index';
 
-describe('<Form />', () => {
+describe('<PieChart />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    render(<Form />);
+    render(<PieChart />);
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -31,7 +31,7 @@ describe('<Form />', () => {
   it.skip('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(<Form />);
+    } = render(<PieChart />);
     expect(firstChild).toMatchSnapshot();
   });
 });

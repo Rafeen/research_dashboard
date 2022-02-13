@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for Form
+ * Asynchronously loads the component for DataTable
  *
  */
 
