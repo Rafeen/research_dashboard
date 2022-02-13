@@ -38,6 +38,9 @@ function AppBar({ openDrawer, toggleDrawer }) {
       <Toolbar
         sx={{
           pr: '24px', // keep right padding when drawer closed
+          position: 'fixed',
+          width: '97%',
+          backgroundColor: 'white',
         }}
       >
         <IconButton
