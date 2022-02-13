@@ -32,9 +32,11 @@ function BarChart({ data }) {
 
   return (
     <ResponsiveBar
+      maxHeight={50}
       margin={{ top: 60, right: 120, bottom: 60, left: 80 }}
+      padding={0.35}
       data={data}
-      keys={['healthy', 'suspacious', 'emergent', 'critical']}
+      keys={['value']}
       indexBy="label"
       labelTextColor="inherit:darker(2.4)"
       labelSkipWidth={12}
@@ -49,7 +51,7 @@ function BarChart({ data }) {
 }
 
 BarChart.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
 };
 
 export default memo(BarChart);

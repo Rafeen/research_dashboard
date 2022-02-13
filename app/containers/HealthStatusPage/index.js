@@ -13,12 +13,12 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import { Box } from '@mui/material';
 import makeSelectHealthStatusPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import Form from '../../components/Form';
-import BarChart from '../../components/BarChart';
+import Form from './forms';
+import BarChart from '../../components/BarChart/Loadable';
 import DemoData from './DemoData';
 // eslint-disable-next-line no-unused-vars
 export function HealthStatusPage({ dispatch }) {
@@ -27,29 +27,24 @@ export function HealthStatusPage({ dispatch }) {
 
   return (
     <Grid container spacing={3}>
-      <Grid
-        item
-        xs={12}
-        md={5}
-        lg={4}
-        autowidth="false"
-        overflow="scroll"
-        sx={{ overflowX: 'hidden' }}
-      >
+      <Grid item xs={12} md={5} lg={4} order={{ xs: 2, md: 1, lg: 1 }}>
         <Form />
       </Grid>
 
-      <Grid item xs={12} md={7} lg={8}>
-        <Paper
+      <Grid item xs={12} md={7} lg={8} order={{ xs: 1, md: 2, lg: 2 }}>
+        <Box
           sx={{
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: 600,
+            height: '600px',
+            position: 'sticky',
+            top: '110px',
+            right: '300px',
           }}
         >
           <BarChart data={DemoData} />
-        </Paper>
+        </Box>
       </Grid>
     </Grid>
   );
