@@ -5,7 +5,7 @@
  */
 
 import React, { memo } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSwitch } from '@mui/base/SwitchUnstyled';
 import clsx from 'clsx';
@@ -84,8 +84,12 @@ function BasicSwitch(props) {
   );
 }
 
-function Switch() {
-  return <BasicSwitch defaultChecked />;
+function Switch({ checked }) {
+  return checked ? <BasicSwitch defaultChecked /> : <BasicSwitch />;
 }
+
+Switch.propTypes = {
+  checked: PropTypes.bool,
+};
 
 export default memo(Switch);

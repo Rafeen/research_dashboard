@@ -20,6 +20,7 @@ import saga from './saga';
 import Form from './forms';
 import BarChart from '../../components/BarChart/Loadable';
 import DemoData from './DemoData';
+
 // eslint-disable-next-line no-unused-vars
 export function HealthStatusPage({ dispatch }) {
   useInjectReducer({ key: 'healthStatusPage', reducer });
@@ -28,21 +29,36 @@ export function HealthStatusPage({ dispatch }) {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={5} lg={4} order={{ xs: 2, md: 1, lg: 1 }}>
-        <Form />
-      </Grid>
-
-      <Grid item xs={12} md={7} lg={8} order={{ xs: 1, md: 2, lg: 2 }}>
         <Box
+          overflow="scroll"
+          height={800}
           sx={{
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: '600px',
-            position: 'sticky',
-            top: '110px',
-            right: '300px',
+            overflowX: 'hidden',
+            overflowY: 'auto',
           }}
         >
+          <Form />
+        </Box>
+      </Grid>
+
+      <Grid item xs={12} md={7} lg={8} order={{ xs: 1, md: 2, lg: 2 }}>
+        <Box>
+          <Box
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              height: '600px',
+              position: 'relative',
+              // top: '0',
+              // right: '300px',
+            }}
+          >
+            <BarChart data={DemoData} />
+          </Box>
           <BarChart data={DemoData} />
         </Box>
       </Grid>

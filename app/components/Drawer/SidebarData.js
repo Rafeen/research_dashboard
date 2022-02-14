@@ -38,8 +38,8 @@ const SidebarData = [
     ],
   },
   {
-    title: 'Logout',
-    path: '/logout',
+    title: 'Datatable',
+    path: '/datatable',
     icon: <Icons.LogoutOutlined />,
     subNav: [],
   },

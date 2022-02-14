@@ -33,7 +33,7 @@ function BarChart({ data }) {
   return (
     <ResponsiveBar
       maxHeight={50}
-      margin={{ top: 60, right: 120, bottom: 60, left: 80 }}
+      margin={{ top: 60, right: 60, bottom: 60, left: 60 }}
       padding={0.35}
       data={data}
       keys={['value']}
