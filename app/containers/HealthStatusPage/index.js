@@ -45,20 +45,15 @@ export function HealthStatusPage({ dispatch }) {
       </Grid>
 
       <Grid item xs={12} md={7} lg={8} order={{ xs: 1, md: 2, lg: 2 }}>
-        <Box>
-          <Box
-            sx={{
-              p: 2,
-              display: 'flex',
-              flexDirection: 'column',
-              height: '600px',
-              position: 'relative',
-              // top: '0',
-              // right: '300px',
-            }}
-          >
-            <BarChart data={DemoData} />
-          </Box>
+        <Box
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            height: '600px',
+            position: 'relative',
+          }}
+        >
           <BarChart data={DemoData} />
         </Box>
       </Grid>

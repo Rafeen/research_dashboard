@@ -64,11 +64,11 @@ function PrivateRoute({ children }) {
 }
 
 PrivateRoute.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.array,
 };
 
 DashboardContent.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.array,
 };
 
 export default memo(PrivateRoute);

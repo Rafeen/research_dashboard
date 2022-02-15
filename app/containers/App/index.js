@@ -13,6 +13,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import HealthStatusPage from 'containers/HealthStatusPage/Loadable';
+import DataTablePage from 'containers/DataTablePage/Loadable';
 import Login from 'containers/LoginPage/Loadable';
 import PrivateRoute from 'components/PrivateRoute/Loadable';
 import GlobalStyle from 'global-styles';
@@ -68,6 +69,7 @@ function App({ dispatch, appState }) {
         <Route path="/404" component={NotFoundPage} />
         <PrivateRoute>
           <Route path="/healthstatus" component={HealthStatusPage} />
+          <Route path="/datatables" component={DataTablePage} />
         </PrivateRoute>
       </Switch>
       <GlobalStyle />

@@ -26,6 +26,12 @@ const SidebarData = [
     ],
   },
   {
+    title: 'Datatables',
+    path: '/datatables',
+    icon: <Icons.TableChartOutlined />,
+    subNav: [],
+  },
+  {
     title: 'Profile',
     path: '/profile',
     icon: <Icons.PermIdentityOutlined />,
