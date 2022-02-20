@@ -34,8 +34,15 @@ import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import { colorSchemeIds, colorSchemes } from '@nivo/colors';
 import selections from './staticUiValues';
 import Switch from '../../components/Switch/Loadable';
+
+import ColorPallet from '../../components/ColorPallet';
+const colors = colorSchemeIds.map(id => ({
+  id,
+  colors: colorSchemes[id],
+}));
 
 const CustomDivider = styled(Divider)`
   font-size: 14px;
@@ -112,17 +119,30 @@ function ValueLabelComponent(props) {
   );
 }
 
-function Form() {
-  const [layout, setLayout] = useState('vertical');
-  const handleLayoutChange = (event, newLayout) => {
-    setLayout(newLayout);
-  };
-
-  const [scale, setScale] = useState('linear');
-  const handleScaleChange = (event, newScale) => {
-    setScale(newScale);
-  };
-
+function Form({
+  layout,
+  handleLayoutChange,
+  scale,
+  handleScaleChange,
+  ageGroup,
+  handleAgeGroupChange,
+  selectedItem,
+  handleSelectedItemChange,
+  gender,
+  handleGenderChange,
+  date,
+  setDate,
+  dependent,
+  handleDependentChange,
+  independent,
+  handleIndependentChange,
+  colorScheme,
+  handleColorSchemeChange,
+  toDate,
+  setToDate,
+  fromDate,
+  setFromDate,
+}) {
   const [minAuto, setMinAuto] = useState(true);
   const handleMinAutoChange = () => {
     setMinAuto(!minAuto);
@@ -131,6 +151,11 @@ function Form() {
   const [maxAuto, setMaxAuto] = useState(true);
   const handleMaxAutoChange = () => {
     setMaxAuto(!maxAuto);
+  };
+
+  const [dateRange, setDateRange] = useState(false);
+  const handleDateRangeSwitchChange = () => {
+    setDateRange(!dateRange);
   };
 
   const [minValue, setMinValue] = useState(20);
@@ -167,68 +192,6 @@ function Form() {
     }
   };
 
-  const [ageGroup, setAgeGroup] = useState([]);
-  const handleAgeGroupChange = event => {
-    const {
-      target: { value },
-    } = event;
-    setAgeGroup(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
-  const [selectedItem, setSelectedItem] = useState([]);
-  const handleSelectedItemChange = event => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedItem(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
-  const [gender, setGender] = useState([]);
-  const handleGenderChange = event => {
-    const {
-      target: { value },
-    } = event;
-    setGender(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
-  const [date, setDate] = useState(new Date());
-
-  const [dateRange, setDateRange] = useState(false);
-  const handleDateRangeSwitchChange = () => {
-    setDateRange(!dateRange);
-  };
-
-  const [dependent, setDependent] = useState([]);
-  const handleDependentChange = event => {
-    const {
-      target: { value },
-    } = event;
-    setDependent(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
-  const [independent, setIndependent] = useState([]);
-  const handleIndependentChange = event => {
-    const {
-      target: { value },
-    } = event;
-    setIndependent(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
   return (
     <Box>
       <Accordion>
@@ -249,6 +212,38 @@ function Form() {
               overflowX: 'hidden',
             }}
           >
+            <FormControl sx={{ minWidth: '100%', marginBottom: '10px' }}>
+              <InputLabel id="color-scheme-input">Color Scheme</InputLabel>
+              <Select
+                labelId="color-scheme"
+                id="color-scheme"
+                value={colorScheme}
+                onChange={handleColorSchemeChange}
+                input={<OutlinedInput label="Color Scheme" />}
+                MenuProps={MenuProps}
+              >
+                {colors.map(scheme => (
+                  <MenuItem
+                    key={scheme.id}
+                    value={scheme.id}
+                    sx={{
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        justifyContent: 'space-between',
+                        display: 'flex',
+                        width: '100%',
+                      }}
+                    >
+                      {scheme.id}
+                      <ColorPallet colors={scheme.colors} />
+                    </Box>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <CustomDivider textAlign="left">Layout</CustomDivider>
 
             <ToggleButtonGroup
@@ -407,7 +402,6 @@ function Form() {
                   <Select
                     labelId="age-group"
                     id="age-group"
-                    multiple
                     value={ageGroup}
                     onChange={handleAgeGroupChange}
                     input={<OutlinedInput label="Age Group" />}
@@ -427,7 +421,6 @@ function Form() {
                   <Select
                     labelId="gender"
                     id="gender"
-                    multiple
                     value={gender}
                     onChange={handleGenderChange}
                     input={<OutlinedInput label="gender" />}
@@ -451,7 +444,6 @@ function Form() {
                   <Select
                     labelId="measurement-item"
                     id="measurement-item"
-                    multiple
                     value={selectedItem}
                     onChange={handleSelectedItemChange}
                     input={<OutlinedInput label="Measurement items" />}
@@ -496,9 +488,9 @@ function Form() {
                     <DatePicker
                       views={['year']}
                       label="From"
-                      value={date}
+                      value={fromDate}
                       onChange={newValue => {
-                        setDate(newValue);
+                        setFromDate(newValue);
                       }}
                       renderInput={params => (
                         <TextField {...params} helperText={null} />
@@ -511,9 +503,9 @@ function Form() {
                     <DatePicker
                       views={['year']}
                       label="To"
-                      value={date}
+                      value={toDate}
                       onChange={newValue => {
-                        setDate(newValue);
+                        setToDate(newValue);
                       }}
                       renderInput={params => (
                         <TextField {...params} helperText={null} />
@@ -556,7 +548,6 @@ function Form() {
                   <Select
                     labelId="dependent"
                     id="dependent"
-                    multiple
                     value={dependent}
                     onChange={handleDependentChange}
                     input={<OutlinedInput label="Dependent" />}
@@ -576,7 +567,6 @@ function Form() {
                   <Select
                     labelId="independent"
                     id="independent"
-                    multiple
                     value={independent}
                     onChange={handleIndependentChange}
                     input={<OutlinedInput label="Independent" />}
@@ -601,7 +591,6 @@ function Form() {
                   <Select
                     labelId="corrX"
                     id="corrX"
-                    multiple
                     value={dependent}
                     onChange={handleDependentChange}
                     input={<OutlinedInput label="X Axis" />}
@@ -621,7 +610,6 @@ function Form() {
                   <Select
                     labelId="corrY"
                     id="corrY"
-                    multiple
                     value={independent}
                     onChange={handleIndependentChange}
                     input={<OutlinedInput label="Y Axis" />}
@@ -646,7 +634,6 @@ function Form() {
                   <Select
                     labelId="datasetFirst"
                     id="datasetFirst"
-                    multiple
                     value={dependent}
                     onChange={handleDependentChange}
                     input={<OutlinedInput label="Select a dataset" />}
@@ -666,7 +653,6 @@ function Form() {
                   <Select
                     labelId="datasetSecond"
                     id="datasetSecond"
-                    multiple
                     value={independent}
                     onChange={handleIndependentChange}
                     input={<OutlinedInput label="Select a dataset" />}
@@ -688,7 +674,30 @@ function Form() {
   );
 }
 
-Form.propTypes = {};
+Form.propTypes = {
+  layout: PropTypes.string,
+  handleLayoutChange: PropTypes.func,
+  scale: PropTypes.string,
+  handleScaleChange: PropTypes.func,
+  ageGroup: PropTypes.array,
+  handleAgeGroupChange: PropTypes.func,
+  selectedItem: PropTypes.array,
+  handleSelectedItemChange: PropTypes.func,
+  gender: PropTypes.array,
+  handleGenderChange: PropTypes.func,
+  date: PropTypes.instanceOf(Date),
+  setDate: PropTypes.func,
+  dependent: PropTypes.array,
+  handleDependentChange: PropTypes.func,
+  independent: PropTypes.array,
+  handleIndependentChange: PropTypes.func,
+  colorScheme: PropTypes.string,
+  handleColorSchemeChange: PropTypes.func,
+  toDate: PropTypes.instanceOf(Date),
+  setToDate: PropTypes.func,
+  fromDate: PropTypes.instanceOf(Date),
+  setFromDate: PropTypes.func,
+};
 
 ValueLabelComponent.propTypes = {
   children: PropTypes.element.isRequired,

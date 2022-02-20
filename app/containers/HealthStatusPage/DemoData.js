@@ -8,7 +8,7 @@ const DemoData = [
   {
     id: 'Suspacious',
     label: 'Suspacious',
-    value: 15,
+    value: 25,
     color: '#FFFDA2',
   },
   {

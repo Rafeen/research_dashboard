@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -26,6 +26,92 @@ export function HealthStatusPage({ dispatch }) {
   useInjectReducer({ key: 'healthStatusPage', reducer });
   useInjectSaga({ key: 'healthStatusPage', saga });
 
+  const [layout, setLayout] = useState('vertical');
+  const handleLayoutChange = (event, newLayout) => {
+    if (newLayout === null) {
+      setLayout(layout);
+      return;
+    }
+    setLayout(newLayout);
+  };
+
+  const [scale, setScale] = useState('linear');
+  const handleScaleChange = (event, newScale) => {
+    if (newScale === null) {
+      setScale(scale);
+      return;
+    }
+    setScale(newScale);
+  };
+
+  const [ageGroup, setAgeGroup] = useState([]);
+  const handleAgeGroupChange = event => {
+    const {
+      target: { value },
+    } = event;
+    setAgeGroup(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const [selectedItem, setSelectedItem] = useState([]);
+  const handleSelectedItemChange = event => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedItem(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const [gender, setGender] = useState([]);
+  const handleGenderChange = event => {
+    const {
+      target: { value },
+    } = event;
+    setGender(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const [date, setDate] = useState(new Date());
+  const [toDate, setToDate] = useState(new Date());
+  const [fromDate, setFromDate] = useState(new Date());
+
+  const [dependent, setDependent] = useState([]);
+  const handleDependentChange = event => {
+    const {
+      target: { value },
+    } = event;
+    setDependent(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const [independent, setIndependent] = useState([]);
+  const handleIndependentChange = event => {
+    const {
+      target: { value },
+    } = event;
+    setIndependent(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const [colorScheme, setColorScheme] = useState('nivo');
+  const handleColorSchemeChange = event => {
+    const {
+      target: { value },
+    } = event;
+
+    setColorScheme(value);
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={5} lg={4} order={{ xs: 2, md: 1, lg: 1 }}>
@@ -40,7 +126,30 @@ export function HealthStatusPage({ dispatch }) {
             overflowY: 'auto',
           }}
         >
-          <Form />
+          <Form
+            layout={layout}
+            handleLayoutChange={handleLayoutChange}
+            scale={scale}
+            handleScaleChange={handleScaleChange}
+            ageGroup={ageGroup}
+            handleAgeGroupChange={handleAgeGroupChange}
+            selectedItem={selectedItem}
+            handleSelectedItemChange={handleSelectedItemChange}
+            gender={gender}
+            handleGenderChange={handleGenderChange}
+            date={date}
+            setDate={setDate}
+            dependent={dependent}
+            handleDependentChange={handleDependentChange}
+            independent={independent}
+            handleIndependentChange={handleIndependentChange}
+            colorScheme={colorScheme}
+            handleColorSchemeChange={handleColorSchemeChange}
+            toDate={toDate}
+            setToDate={setToDate}
+            fromDate={fromDate}
+            setFromDate={setFromDate}
+          />
         </Box>
       </Grid>
 
@@ -54,7 +163,12 @@ export function HealthStatusPage({ dispatch }) {
             position: 'relative',
           }}
         >
-          <BarChart data={DemoData} />
+          <BarChart
+            colorScheme={colorScheme}
+            layout={layout}
+            scale={scale}
+            data={DemoData}
+          />
         </Box>
       </Grid>
     </Grid>

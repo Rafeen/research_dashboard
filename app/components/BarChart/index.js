@@ -27,17 +27,14 @@ const axisLeft = {
   legendOffset: -40,
 };
 
-function BarChart({ data }) {
-  const colors = data.map(item => item.color);
-
+function BarChart({ data, colorScheme, layout, scale }) {
   return (
     <ResponsiveBar
-      maxHeight={50}
       margin={{ top: 60, right: 60, bottom: 60, left: 60 }}
       padding={0.35}
       data={data}
       keys={['value']}
-      indexBy="label"
+      indexBy="id"
       labelTextColor="inherit:darker(2.4)"
       labelSkipWidth={12}
       labelSkipHeight={12}
@@ -45,13 +42,18 @@ function BarChart({ data }) {
       axisBottom={axisBottom}
       axisLeft={axisLeft}
       colorBy="index"
-      colors={colors}
+      colors={{ scheme: colorScheme }}
+      layout={layout}
+      valueScale={{ type: scale }}
     />
   );
 }
 
 BarChart.propTypes = {
   data: PropTypes.array,
+  colorScheme: PropTypes.string,
+  scale: PropTypes.string,
+  layout: PropTypes.string,
 };
 
 export default memo(BarChart);
