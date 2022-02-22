@@ -142,12 +142,19 @@ function Form({
   setToDate,
   fromDate,
   setFromDate,
+  labelFontSize,
+  handleLabelFontInputChange,
+  handleLabelFontSliderChange,
+  handleLabelFontBlur,
+  tickFontSize,
+  handleTickFontInputChange,
+  handleTickFontSliderChange,
+  handleTickFontBlur,
+  maxValue,
+  handleMaxInputChange,
+  handleMaxSliderChange,
+  handleMaxBlur,
 }) {
-  const [minAuto, setMinAuto] = useState(true);
-  const handleMinAutoChange = () => {
-    setMinAuto(!minAuto);
-  };
-
   const [maxAuto, setMaxAuto] = useState(true);
   const handleMaxAutoChange = () => {
     setMaxAuto(!maxAuto);
@@ -156,40 +163,6 @@ function Form({
   const [dateRange, setDateRange] = useState(false);
   const handleDateRangeSwitchChange = () => {
     setDateRange(!dateRange);
-  };
-
-  const [minValue, setMinValue] = useState(20);
-  const handleMinSliderChange = (event, newValue) => {
-    setMinValue(newValue);
-  };
-
-  const handleMinInputChange = event => {
-    setMinValue(event.target.value === '' ? '' : Number(event.target.value));
-  };
-
-  const handleMinBlur = () => {
-    if (minValue < 0) {
-      setMinValue(0);
-    } else if (minValue > 100) {
-      setMinValue(100);
-    }
-  };
-
-  const [maxValue, setMaxValue] = useState(20);
-  const handleMaxSliderChange = (event, newValue) => {
-    setMaxValue(newValue);
-  };
-
-  const handleMaxInputChange = event => {
-    setMaxValue(event.target.value === '' ? '' : Number(event.target.value));
-  };
-
-  const handleMaxBlur = () => {
-    if (minValue < 0) {
-      setMaxValue(0);
-    } else if (minValue > 100) {
-      setMaxValue(100);
-    }
   };
 
   return (
@@ -280,54 +253,84 @@ function Form({
               <ToggleButton value="symlog">Symlog</ToggleButton>
             </ToggleButtonGroup>
 
-            <CustomDivider textAlign="left">Minimum Value</CustomDivider>
-            <FormControlLabel
-              sx={{ width: 'max-content' }}
-              onClick={handleMinAutoChange}
-              control={<Switch checked />}
-              label={minAuto ? 'auto' : 'set value'}
-            />
-            {!minAuto ? (
-              <>
-                <Box sx={{ width: '100%' }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs>
-                      <CustomSlider
-                        onChange={handleMinSliderChange}
-                        valueLabelDisplay="auto"
-                        aria-label="min slider"
-                        defaultValue={20}
-                        value={typeof minValue === 'number' ? minValue : 0}
-                        min={0}
-                        max={200}
-                        sx={{
-                          width: '100%',
-                        }}
-                      />
-                    </Grid>
-                    <Grid item mr={8}>
-                      <Input
-                        value={minValue}
-                        size="small"
-                        onChange={handleMinInputChange}
-                        onBlur={handleMinBlur}
-                        sx={{
-                          // underline when selected
-                          ':after': { borderBottomColor: `${accentColor}` },
-                        }}
-                        inputProps={{
-                          step: 10,
-                          min: 0,
-                          max: 100,
-                          type: 'number',
-                          'aria-labelledby': 'input-slider',
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
-              </>
-            ) : null}
+            <CustomDivider textAlign="left">Label Font Size</CustomDivider>
+            <Box sx={{ width: '100%' }}>
+              <Grid container spacing={2}>
+                <Grid item xs>
+                  <CustomSlider
+                    onChange={handleLabelFontSliderChange}
+                    valueLabelDisplay="auto"
+                    aria-label="size slider slider"
+                    defaultValue={24}
+                    value={
+                      typeof labelFontSize === 'number' ? labelFontSize : 12
+                    }
+                    min={12}
+                    max={64}
+                    sx={{
+                      width: '100%',
+                    }}
+                  />
+                </Grid>
+                <Grid item mr={8}>
+                  <Input
+                    value={labelFontSize}
+                    size="small"
+                    onChange={handleLabelFontInputChange}
+                    onBlur={handleLabelFontBlur}
+                    sx={{
+                      // underline when selected
+                      ':after': { borderBottomColor: `${accentColor}` },
+                    }}
+                    inputProps={{
+                      step: 10,
+                      min: 12,
+                      max: 64,
+                      type: 'number',
+                      'aria-labelledby': 'input-slider',
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+            <CustomDivider textAlign="left">Tick Font Size</CustomDivider>
+            <Box sx={{ width: '100%' }}>
+              <Grid container spacing={2}>
+                <Grid item xs>
+                  <CustomSlider
+                    onChange={handleTickFontSliderChange}
+                    valueLabelDisplay="auto"
+                    aria-label="size slider slider"
+                    defaultValue={24}
+                    value={typeof tickFontSize === 'number' ? tickFontSize : 12}
+                    min={12}
+                    max={64}
+                    sx={{
+                      width: '100%',
+                    }}
+                  />
+                </Grid>
+                <Grid item mr={8}>
+                  <Input
+                    value={tickFontSize}
+                    size="small"
+                    onChange={handleTickFontInputChange}
+                    onBlur={handleTickFontBlur}
+                    sx={{
+                      // underline when selected
+                      ':after': { borderBottomColor: `${accentColor}` },
+                    }}
+                    inputProps={{
+                      step: 10,
+                      min: 12,
+                      max: 64,
+                      type: 'number',
+                      'aria-labelledby': 'input-slider',
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Box>
             <CustomDivider textAlign="left">Maximum Value</CustomDivider>
             <FormControlLabel
               sx={{ width: 'max-content' }}
@@ -697,6 +700,18 @@ Form.propTypes = {
   setToDate: PropTypes.func,
   fromDate: PropTypes.instanceOf(Date),
   setFromDate: PropTypes.func,
+  labelFontSize: PropTypes.number,
+  handleLabelFontInputChange: PropTypes.func,
+  handleLabelFontSliderChange: PropTypes.func,
+  handleLabelFontBlur: PropTypes.func,
+  tickFontSize: PropTypes.number,
+  handleTickFontInputChange: PropTypes.func,
+  handleTickFontSliderChange: PropTypes.func,
+  handleTickFontBlur: PropTypes.func,
+  maxValue: PropTypes.number,
+  handleMaxInputChange: PropTypes.func,
+  handleMaxSliderChange: PropTypes.func,
+  handleMaxBlur: PropTypes.func,
 };
 
 ValueLabelComponent.propTypes = {

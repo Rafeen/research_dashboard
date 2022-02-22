@@ -15,7 +15,7 @@ const axisBottom = {
   tickRotation: 0,
   legend: 'Health Satus',
   legendPosition: 'middle',
-  legendOffset: 32,
+  legendOffset: 80,
 };
 
 const axisLeft = {
@@ -24,13 +24,20 @@ const axisLeft = {
   tickRotation: 0,
   legend: 'Count',
   legendPosition: 'middle',
-  legendOffset: -40,
+  legendOffset: -120,
 };
 
-function BarChart({ data, colorScheme, layout, scale }) {
+function BarChart({
+  data,
+  colorScheme,
+  layout,
+  scale,
+  labelFontSize,
+  tickFontSize,
+}) {
   return (
     <ResponsiveBar
-      margin={{ top: 60, right: 60, bottom: 60, left: 60 }}
+      margin={{ top: 60, right: 60, bottom: 120, left: 200 }}
       padding={0.35}
       data={data}
       keys={['value']}
@@ -38,13 +45,27 @@ function BarChart({ data, colorScheme, layout, scale }) {
       labelTextColor="inherit:darker(2.4)"
       labelSkipWidth={12}
       labelSkipHeight={12}
-      enableGridX={false}
+      enableGridX
       axisBottom={axisBottom}
       axisLeft={axisLeft}
       colorBy="index"
       colors={{ scheme: colorScheme }}
       layout={layout}
       valueScale={{ type: scale }}
+      theme={{
+        axis: {
+          legend: {
+            text: {
+              fontSize: labelFontSize,
+            },
+          },
+          ticks: {
+            text: {
+              fontSize: tickFontSize,
+            },
+          },
+        },
+      }}
     />
   );
 }
@@ -54,6 +75,8 @@ BarChart.propTypes = {
   colorScheme: PropTypes.string,
   scale: PropTypes.string,
   layout: PropTypes.string,
+  labelFontSize: PropTypes.number,
+  tickFontSize: PropTypes.number,
 };
 
 export default memo(BarChart);

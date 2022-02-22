@@ -112,6 +112,61 @@ export function HealthStatusPage({ dispatch }) {
     setColorScheme(value);
   };
 
+  const [labelFontSize, setLabelFontSize] = useState(24);
+  const handleLabelFontSliderChange = (event, newValue) => {
+    setLabelFontSize(newValue);
+  };
+
+  const handleLabelFontInputChange = event => {
+    setLabelFontSize(
+      event.target.value === '' ? '' : Number(event.target.value),
+    );
+  };
+
+  const handleLabelFontBlur = () => {
+    if (tickFontSize < 12) {
+      labelFontSize(12);
+    } else if (tickFontSize > 64) {
+      labelFontSize(64);
+    }
+  };
+
+  const [tickFontSize, setTickFontSize] = useState(24);
+  const handleTickFontSliderChange = (event, newValue) => {
+    setTickFontSize(newValue);
+  };
+
+  const handleTickFontInputChange = event => {
+    setTickFontSize(
+      event.target.value === '' ? '' : Number(event.target.value),
+    );
+  };
+
+  const handleTickFontBlur = () => {
+    if (tickFontSize < 12) {
+      setTickFontSize(12);
+    } else if (tickFontSize > 64) {
+      setTickFontSize(64);
+    }
+  };
+
+  const [maxValue, setMaxValue] = useState(20);
+  const handleMaxSliderChange = (event, newValue) => {
+    setMaxValue(newValue);
+  };
+
+  const handleMaxInputChange = event => {
+    setMaxValue(event.target.value === '' ? '' : Number(event.target.value));
+  };
+
+  const handleMaxBlur = () => {
+    if (maxValue < 0) {
+      setMaxValue(0);
+    } else if (maxValue > 100) {
+      setMaxValue(100);
+    }
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={5} lg={4} order={{ xs: 2, md: 1, lg: 1 }}>
@@ -149,6 +204,18 @@ export function HealthStatusPage({ dispatch }) {
             setToDate={setToDate}
             fromDate={fromDate}
             setFromDate={setFromDate}
+            labelFontSize={labelFontSize}
+            handleLabelFontSliderChange={handleLabelFontSliderChange}
+            handleLabelFontInputChange={handleLabelFontInputChange}
+            handleLabelFontBlur={handleLabelFontBlur}
+            tickFontSize={tickFontSize}
+            handleTickFontInputChange={handleTickFontInputChange}
+            handleTickFontSliderChange={handleTickFontSliderChange}
+            handleTickFontBlur={handleTickFontBlur}
+            maxValue={maxValue}
+            handleMaxInputChange={handleMaxInputChange}
+            handleMaxSliderChange={handleMaxSliderChange}
+            handleMaxBlur={handleMaxBlur}
           />
         </Box>
       </Grid>
@@ -159,7 +226,7 @@ export function HealthStatusPage({ dispatch }) {
             p: 2,
             display: 'flex',
             flexDirection: 'column',
-            height: '600px',
+            height: '800px',
             position: 'relative',
           }}
         >
@@ -168,6 +235,9 @@ export function HealthStatusPage({ dispatch }) {
             layout={layout}
             scale={scale}
             data={DemoData}
+            maxValue={maxValue}
+            labelFontSize={labelFontSize}
+            tickFontSize={tickFontSize}
           />
         </Box>
       </Grid>
